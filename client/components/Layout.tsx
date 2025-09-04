@@ -68,7 +68,7 @@ export function Layout({ children }: LayoutProps) {
                 )}
                 <div className="space-y-2">
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<Users className="h-5 w-5" />}
                     label="Overview"
                     active
                     expanded={sidebarExpanded}
@@ -85,17 +85,17 @@ export function Layout({ children }: LayoutProps) {
                 )}
                 <div className="space-y-2">
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<Plane className="h-5 w-5" />}
                     label="Travel Request"
                     expanded={sidebarExpanded}
                   />
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<Calendar className="h-5 w-5" />}
                     label="Bookings"
                     expanded={sidebarExpanded}
                   />
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<MapPin className="h-5 w-5" />}
                     label="Itineraries"
                     expanded={sidebarExpanded}
                   />
@@ -111,17 +111,17 @@ export function Layout({ children }: LayoutProps) {
                 )}
                 <div className="space-y-2">
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<FileText className="h-5 w-5" />}
                     label="Expense Reports"
                     expanded={sidebarExpanded}
                   />
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<CreditCard className="h-5 w-5" />}
                     label="Reimbursements"
                     expanded={sidebarExpanded}
                   />
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<CheckCircle className="h-5 w-5" />}
                     label="Approvals"
                     expanded={sidebarExpanded}
                   />
@@ -137,22 +137,22 @@ export function Layout({ children }: LayoutProps) {
                 )}
                 <div className="space-y-2">
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<Users className="h-5 w-5" />}
                     label="Users"
                     expanded={sidebarExpanded}
                   />
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<Building2 className="h-5 w-5" />}
                     label="Departments"
                     expanded={sidebarExpanded}
                   />
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<Settings className="h-5 w-5" />}
                     label="Settings"
                     expanded={sidebarExpanded}
                   />
                   <NavItem
-                    icon={<User className="h-5 w-5" />}
+                    icon={<BarChart3 className="h-5 w-5" />}
                     label="Reports"
                     expanded={sidebarExpanded}
                   />
