@@ -23,6 +23,8 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [sidebarHover, setSidebarHover] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const sidebarExpanded = !sidebarCollapsed || sidebarHover;
 
@@ -71,8 +73,9 @@ export function Layout({ children }: LayoutProps) {
                   <NavItem
                     icon={<Users className="h-5 w-5" />}
                     label="Overview"
-                    active
+                    active={location.pathname === '/'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/')}
                   />
                 </div>
               </div>
@@ -88,17 +91,23 @@ export function Layout({ children }: LayoutProps) {
                   <NavItem
                     icon={<Plane className="h-5 w-5" />}
                     label="Travel Request"
+                    active={location.pathname === '/travel-request'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/travel-request')}
                   />
                   <NavItem
                     icon={<Calendar className="h-5 w-5" />}
                     label="Bookings"
+                    active={location.pathname === '/bookings'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/bookings')}
                   />
                   <NavItem
                     icon={<MapPin className="h-5 w-5" />}
                     label="Itineraries"
+                    active={location.pathname === '/itineraries'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/itineraries')}
                   />
                 </div>
               </div>
@@ -114,17 +123,23 @@ export function Layout({ children }: LayoutProps) {
                   <NavItem
                     icon={<FileText className="h-5 w-5" />}
                     label="Expense Reports"
+                    active={location.pathname === '/expense-reports'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/expense-reports')}
                   />
                   <NavItem
                     icon={<CreditCard className="h-5 w-5" />}
                     label="Reimbursements"
+                    active={location.pathname === '/reimbursements'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/reimbursements')}
                   />
                   <NavItem
                     icon={<CheckCircle className="h-5 w-5" />}
                     label="Approvals"
+                    active={location.pathname === '/approvals'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/approvals')}
                   />
                 </div>
               </div>
@@ -140,22 +155,30 @@ export function Layout({ children }: LayoutProps) {
                   <NavItem
                     icon={<Users className="h-5 w-5" />}
                     label="Users"
+                    active={location.pathname === '/users'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/users')}
                   />
                   <NavItem
                     icon={<Building2 className="h-5 w-5" />}
                     label="Departments"
+                    active={location.pathname === '/departments'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/departments')}
                   />
                   <NavItem
                     icon={<Settings className="h-5 w-5" />}
                     label="Settings"
+                    active={location.pathname === '/settings'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/settings')}
                   />
                   <NavItem
                     icon={<BarChart3 className="h-5 w-5" />}
                     label="Reports"
+                    active={location.pathname === '/reports'}
                     expanded={sidebarExpanded}
+                    onClick={() => navigate('/reports')}
                   />
                 </div>
               </div>
@@ -211,11 +234,13 @@ interface NavItemProps {
   label: string;
   active?: boolean;
   expanded: boolean;
+  onClick?: () => void;
 }
 
-function NavItem({ icon, label, active = false, expanded }: NavItemProps) {
+function NavItem({ icon, label, active = false, expanded, onClick }: NavItemProps) {
   return (
     <button
+      onClick={onClick}
       className={cn(
         "flex w-full items-center gap-3 rounded-[10px] px-5 py-3 text-left transition-colors",
         active
