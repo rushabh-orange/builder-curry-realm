@@ -36,37 +36,40 @@ const mockStats: StatsResponse = {
   activeTrips: 24,
   pendingExpenses: "$12,450",
   awaitingApproval: 18,
-  monthlyBudget: "$45,000"
+  monthlyBudget: "$45,000",
 };
 
 const mockTravelRequests: TravelRequest[] = [
   {
     id: "1",
     name: "Sarah Johnson",
-    avatar: "https://api.builder.io/api/v1/image/assets/TEMP/4fa4c38ef3892012b166bc2fbb474ffbd49bda2e?width=100",
+    avatar:
+      "https://api.builder.io/api/v1/image/assets/TEMP/4fa4c38ef3892012b166bc2fbb474ffbd49bda2e?width=100",
     from: "New York",
     to: "London",
     status: "pending",
-    requestDate: "2025-01-15"
+    requestDate: "2025-01-15",
   },
   {
     id: "2",
     name: "Mike Chen",
-    avatar: "https://api.builder.io/api/v1/image/assets/TEMP/584eb215fe812bf81c2c9ffc953c457482b1f3de?width=100",
+    avatar:
+      "https://api.builder.io/api/v1/image/assets/TEMP/584eb215fe812bf81c2c9ffc953c457482b1f3de?width=100",
     from: "San Francisco",
     to: "Tokyo",
     status: "approved",
-    requestDate: "2025-01-14"
+    requestDate: "2025-01-14",
   },
   {
     id: "3",
     name: "Emma Davis",
-    avatar: "https://api.builder.io/api/v1/image/assets/TEMP/39373ec2416a0763f8d322ef0bcb73c6be64dd70?width=100",
+    avatar:
+      "https://api.builder.io/api/v1/image/assets/TEMP/39373ec2416a0763f8d322ef0bcb73c6be64dd70?width=100",
     from: "Chicago",
     to: "Berlin",
     status: "rejected",
-    requestDate: "2025-01-13"
-  }
+    requestDate: "2025-01-13",
+  },
 ];
 
 const mockExpenseReports: ExpenseReport[] = [
@@ -76,7 +79,7 @@ const mockExpenseReports: ExpenseReport[] = [
     submittedBy: "Submitted by Alex Rivera",
     amount: "$3,245",
     status: "pending",
-    submissionDate: "2025-01-15"
+    submissionDate: "2025-01-15",
   },
   {
     id: "2",
@@ -84,7 +87,7 @@ const mockExpenseReports: ExpenseReport[] = [
     submittedBy: "Submitted by Lisa Park",
     amount: "$3,245",
     status: "approved",
-    submissionDate: "2025-01-14"
+    submissionDate: "2025-01-14",
   },
   {
     id: "3",
@@ -92,8 +95,8 @@ const mockExpenseReports: ExpenseReport[] = [
     submittedBy: "Submitted by David Kim",
     amount: "$3,245",
     status: "rejected",
-    submissionDate: "2025-01-13"
-  }
+    submissionDate: "2025-01-13",
+  },
 ];
 
 const mockMonthlyExpenses: MonthlyExpense[] = [
@@ -108,7 +111,7 @@ const mockMonthlyExpenses: MonthlyExpense[] = [
   { month: "Sep", amount: 800 },
   { month: "Oct", amount: 700 },
   { month: "Nov", amount: 1900 },
-  { month: "Dec", amount: 2000 }
+  { month: "Dec", amount: 2000 },
 ];
 
 // API Handlers
@@ -131,29 +134,29 @@ export const getMonthlyExpenses: RequestHandler = (req, res) => {
 // Individual travel request handlers
 export const getTravelRequest: RequestHandler = (req, res) => {
   const { id } = req.params;
-  const request = mockTravelRequests.find(r => r.id === id);
-  
+  const request = mockTravelRequests.find((r) => r.id === id);
+
   if (!request) {
     return res.status(404).json({ error: "Travel request not found" });
   }
-  
+
   res.json(request);
 };
 
 export const updateTravelRequestStatus: RequestHandler = (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  
-  const requestIndex = mockTravelRequests.findIndex(r => r.id === id);
-  
+
+  const requestIndex = mockTravelRequests.findIndex((r) => r.id === id);
+
   if (requestIndex === -1) {
     return res.status(404).json({ error: "Travel request not found" });
   }
-  
+
   if (!["pending", "approved", "rejected"].includes(status)) {
     return res.status(400).json({ error: "Invalid status" });
   }
-  
+
   mockTravelRequests[requestIndex].status = status;
   res.json(mockTravelRequests[requestIndex]);
 };
@@ -161,29 +164,29 @@ export const updateTravelRequestStatus: RequestHandler = (req, res) => {
 // Individual expense report handlers
 export const getExpenseReport: RequestHandler = (req, res) => {
   const { id } = req.params;
-  const report = mockExpenseReports.find(r => r.id === id);
-  
+  const report = mockExpenseReports.find((r) => r.id === id);
+
   if (!report) {
     return res.status(404).json({ error: "Expense report not found" });
   }
-  
+
   res.json(report);
 };
 
 export const updateExpenseReportStatus: RequestHandler = (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  
-  const reportIndex = mockExpenseReports.findIndex(r => r.id === id);
-  
+
+  const reportIndex = mockExpenseReports.findIndex((r) => r.id === id);
+
   if (reportIndex === -1) {
     return res.status(404).json({ error: "Expense report not found" });
   }
-  
+
   if (!["pending", "approved", "rejected"].includes(status)) {
     return res.status(400).json({ error: "Invalid status" });
   }
-  
+
   mockExpenseReports[reportIndex].status = status;
   res.json(mockExpenseReports[reportIndex]);
 };

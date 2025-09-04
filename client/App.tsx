@@ -20,16 +20,96 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/travel-request" element={<PlaceholderPage title="Travel Request" description="Manage and submit travel requests" />} />
-          <Route path="/bookings" element={<PlaceholderPage title="Bookings" description="View and manage travel bookings" />} />
-          <Route path="/itineraries" element={<PlaceholderPage title="Itineraries" description="Plan and view travel itineraries" />} />
-          <Route path="/expense-reports" element={<PlaceholderPage title="Expense Reports" description="Submit and track expense reports" />} />
-          <Route path="/reimbursements" element={<PlaceholderPage title="Reimbursements" description="Manage expense reimbursements" />} />
-          <Route path="/approvals" element={<PlaceholderPage title="Approvals" description="Review and approve travel requests" />} />
-          <Route path="/users" element={<PlaceholderPage title="Users" description="Manage user accounts and permissions" />} />
-          <Route path="/departments" element={<PlaceholderPage title="Departments" description="Organize and manage departments" />} />
-          <Route path="/settings" element={<PlaceholderPage title="Settings" description="Configure system settings" />} />
-          <Route path="/reports" element={<PlaceholderPage title="Reports" description="View analytics and reports" />} />
+          <Route
+            path="/travel-request"
+            element={
+              <PlaceholderPage
+                title="Travel Request"
+                description="Manage and submit travel requests"
+              />
+            }
+          />
+          <Route
+            path="/bookings"
+            element={
+              <PlaceholderPage
+                title="Bookings"
+                description="View and manage travel bookings"
+              />
+            }
+          />
+          <Route
+            path="/itineraries"
+            element={
+              <PlaceholderPage
+                title="Itineraries"
+                description="Plan and view travel itineraries"
+              />
+            }
+          />
+          <Route
+            path="/expense-reports"
+            element={
+              <PlaceholderPage
+                title="Expense Reports"
+                description="Submit and track expense reports"
+              />
+            }
+          />
+          <Route
+            path="/reimbursements"
+            element={
+              <PlaceholderPage
+                title="Reimbursements"
+                description="Manage expense reimbursements"
+              />
+            }
+          />
+          <Route
+            path="/approvals"
+            element={
+              <PlaceholderPage
+                title="Approvals"
+                description="Review and approve travel requests"
+              />
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <PlaceholderPage
+                title="Users"
+                description="Manage user accounts and permissions"
+              />
+            }
+          />
+          <Route
+            path="/departments"
+            element={
+              <PlaceholderPage
+                title="Departments"
+                description="Organize and manage departments"
+              />
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <PlaceholderPage
+                title="Settings"
+                description="Configure system settings"
+              />
+            }
+          />
+          <Route
+            path="/reports"
+            element={
+              <PlaceholderPage
+                title="Reports"
+                description="View analytics and reports"
+              />
+            }
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

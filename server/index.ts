@@ -10,7 +10,7 @@ import {
   getTravelRequest,
   updateTravelRequestStatus,
   getExpenseReport,
-  updateExpenseReportStatus
+  updateExpenseReportStatus,
 } from "./routes/travel";
 
 export function createServer() {
