@@ -1,6 +1,19 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Bell, Menu, User } from "lucide-react";
+import {
+  Bell,
+  Menu,
+  Users,
+  Plane,
+  Calendar,
+  MapPin,
+  FileText,
+  CreditCard,
+  CheckCircle,
+  Settings,
+  BarChart3,
+  Building2
+} from "lucide-react";
 
 interface LayoutProps {
   children: React.ReactNode;
