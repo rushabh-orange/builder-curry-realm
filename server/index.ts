@@ -29,5 +29,15 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // Travel Admin Dashboard API routes
+  app.get("/api/stats", getStats);
+  app.get("/api/travel-requests", getTravelRequests);
+  app.get("/api/travel-requests/:id", getTravelRequest);
+  app.put("/api/travel-requests/:id/status", updateTravelRequestStatus);
+  app.get("/api/expense-reports", getExpenseReports);
+  app.get("/api/expense-reports/:id", getExpenseReport);
+  app.put("/api/expense-reports/:id/status", updateExpenseReportStatus);
+  app.get("/api/monthly-expenses", getMonthlyExpenses);
+
   return app;
 }
