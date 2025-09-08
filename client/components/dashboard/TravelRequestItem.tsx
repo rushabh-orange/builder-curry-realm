@@ -26,7 +26,7 @@ export function TravelRequestItem({ name, avatar, from, to, status }: TravelRequ
   return (
     <div className="flex items-center justify-between py-4">
       <div className="flex items-center gap-4">
-        <img src={avatar} alt={name} className="h-12 w-12 rounded-md object-cover" />
+        <img src={avatar} alt={name} loading="lazy" decoding="async" className="h-12 w-12 rounded-md object-cover" />
         <div>
           <h4 className="text-lg font-medium text-foreground">{name}</h4>
           <div className="flex items-center gap-2 text-base text-secondary-foreground">
