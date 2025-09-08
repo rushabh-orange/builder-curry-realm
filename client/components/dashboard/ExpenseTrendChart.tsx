@@ -49,7 +49,9 @@ export function ExpenseTrendChart({
         },
       },
       grid: { left: "3%", right: "4%", bottom: "3%", containLabel: true },
-      xAxis: [{ type: "category", data: months, axisTick: { alignWithLabel: true } }],
+      xAxis: [
+        { type: "category", data: months, axisTick: { alignWithLabel: true } },
+      ],
       yAxis: [{ type: "value", axisLabel: { formatter: "${value}" } }],
       series: [
         {
@@ -73,7 +75,10 @@ export function ExpenseTrendChart({
     };
   }, [months, values, color, seriesName]);
 
-  const style = typeof height === "number" ? { width: "100%", height } : { width: "100%", height: height as string };
+  const style =
+    typeof height === "number"
+      ? { width: "100%", height }
+      : { width: "100%", height: height as string };
   return <div ref={ref} style={style} />;
 }
 

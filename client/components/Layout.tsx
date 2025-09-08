@@ -39,9 +39,7 @@ export function Layout({ children }: LayoutProps) {
   const sections = [
     {
       title: "Dashboard",
-      items: [
-        { label: "Overview", path: "/", Icon: User },
-      ],
+      items: [{ label: "Overview", path: "/", Icon: User }],
     },
     {
       title: "Travel Management",
@@ -163,7 +161,10 @@ export function Layout({ children }: LayoutProps) {
             </button>
 
             <div className="flex items-center gap-4">
-              <button aria-label="Notifications" className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+              <button
+                aria-label="Notifications"
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+              >
                 <Bell className="h-5 w-5 text-foreground" />
               </button>
               <DropdownMenu>
