@@ -227,7 +227,12 @@ function NavItem({
           : "text-secondary-foreground hover:bg-gray-50",
       )}
     >
-      <span className={cn(active ? "text-white" : "text-secondary")}>
+      <span
+        className={cn(
+          active ? "text-white" : "text-[#6B7280]",
+          "[&_*]:fill-current [&_*]:stroke-current",
+        )}
+      >
         {icon}
       </span>
       <span
