@@ -41,7 +41,7 @@ export function Layout({ children }: LayoutProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 h-screen bg-white transition-all duration-300 ease-in-out border-r border-border overflow-hidden",
+          "fixed left-0 top-0 z-40 h-screen bg-white transition-all duration-400 ease-in-out border-r border-border overflow-hidden",
           sidebarExpanded ? "w-[330px]" : "w-20",
         )}
       >
@@ -65,7 +65,7 @@ export function Layout({ children }: LayoutProps) {
               </div>
               <span
                 className={cn(
-                  "text-lg font-semibold text-foreground whitespace-nowrap overflow-hidden transition-[opacity,max-width,margin] duration-300",
+                  "text-lg font-semibold text-foreground whitespace-nowrap overflow-hidden transition-[opacity,max-width,margin] duration-400",
                   sidebarExpanded ? "opacity-100 max-w-[220px] ml-2" : "opacity-0 max-w-0 ml-0",
                 )}
               >
@@ -210,7 +210,7 @@ export function Layout({ children }: LayoutProps) {
       {/* Main Content */}
       <div
         className={cn(
-          "transition-all duration-300 ease-in-out h-screen overflow-hidden",
+          "transition-all duration-400 ease-in-out h-screen overflow-hidden",
           sidebarExpanded ? "ml-[330px]" : "ml-20",
         )}
       >
@@ -294,8 +294,8 @@ function NavItem({
       </span>
       <span
         className={cn(
-          "text-base font-medium transition-all duration-200 overflow-hidden whitespace-nowrap",
-          expanded ? "opacity-100 w-auto ml-1" : "opacity-0 w-0 ml-0",
+          "text-base font-medium whitespace-nowrap overflow-hidden transition-[opacity,max-width,margin] duration-400 ease-in-out",
+          expanded ? "opacity-100 max-w-[200px] ml-2" : "opacity-0 max-w-0 ml-0",
         )}
       >
         {label}
