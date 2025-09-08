@@ -279,10 +279,15 @@ function NavItem({
           : "text-secondary-foreground hover:bg-gray-50",
       )}
     >
-      <span className={cn(active ? "text-white" : "text-secondary")}>
-        {icon}
+      <span className={cn(active ? "text-white" : "text-secondary")}>{icon}</span>
+      <span
+        className={cn(
+          "text-base font-medium transition-all duration-200 overflow-hidden whitespace-nowrap",
+          expanded ? "opacity-100 w-auto ml-1" : "opacity-0 w-0 ml-0",
+        )}
+      >
+        {label}
       </span>
-      {expanded && <span className="text-base font-medium">{label}</span>}
     </button>
   );
 }
