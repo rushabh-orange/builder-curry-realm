@@ -448,9 +448,9 @@ export function DashboardOverview() {
       <div className="flex items-center justify-between py-4 text-base text-primary">
         <span>© 2025 Travel Expense Pro. All rights reserved.</span>
         <div className="flex gap-8">
-          <span>Privacy</span>
-          <span>Terms</span>
-          <span>Support</span>
+          <a href="#" className="hover:underline">Privacy</a>
+          <a href="#" className="hover:underline">Terms</a>
+          <a href="#" className="hover:underline">Support</a>
         </div>
       </div>
     </div>
