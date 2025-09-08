@@ -1,0 +1,14 @@
+// client/assets/icons/index.ts
+export { default as Bell } from "./Bell.svg?react";
+export { default as Menu } from "./Menu.svg?react";
+export { default as User } from "./overview.svg?react";
+export { default as PlaneIcon } from "./plane.svg?react";
+export { default as Calendar } from "./Calendar.svg?react";
+export { default as MapPinTrack } from "./MapPinTrack.svg?react";
+export { default as FileText } from "./FileText.svg?react";
+export { default as CreditCard } from "./reimbursements.svg?react";
+export { default as CheckCircle } from "./approvals.svg?react";
+export { default as Users } from "./Users.svg?react";
+export { default as TreeStructure } from "./TreeStructure.svg?react";
+export { default as Settings } from "./Settings.svg?react";
+export { default as Reports } from "./Reports.svg?react";
