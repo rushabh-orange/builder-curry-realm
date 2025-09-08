@@ -21,7 +21,7 @@ const STATUS_LABELS: Record<ReportStatus, string> = {
   rejected: "Rejected",
 };
 
-export function ExpenseReportItem({ title, submittedBy, amount, status }: ExpenseReportProps) {
+function ExpenseReportItemBase({ title, submittedBy, amount, status }: ExpenseReportProps) {
   return (
     <div className="flex items-center justify-between py-4">
       <div>
