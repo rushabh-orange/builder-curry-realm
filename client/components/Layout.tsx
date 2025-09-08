@@ -73,7 +73,7 @@ export function Layout({ children }: LayoutProps) {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-6 py-4">
+          <nav className="flex-1 overflow-y-auto px-6 py-4 pb-6">
             <div className="space-y-8">
               {/* Dashboard Section */}
               <div>
