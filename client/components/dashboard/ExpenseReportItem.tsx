@@ -37,3 +37,5 @@ function ExpenseReportItemBase({ title, submittedBy, amount, status }: ExpenseRe
     </div>
   );
 }
+
+export const ExpenseReportItem = React.memo(ExpenseReportItemBase);
