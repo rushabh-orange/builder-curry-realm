@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 import {
   TrendingUp,
   Clock,
@@ -5,6 +6,7 @@ import {
   DollarSign,
   ArrowRight,
 } from "lucide-react";
+import * as echarts from 'echarts';
 
 interface StatCardProps {
   title: string;
@@ -157,111 +159,79 @@ function ExpenseReportItem({
   );
 }
 
-function SimpleChart() {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const values = [
-    1500, 2500, 1000, 2700, 1800, 1600, 2800, 2900, 800, 700, 1900, 2000,
-  ];
-  const maxValue = Math.max(...values);
 
-  return (
-    <div className="space-y-6">
-      <div className="relative h-80 overflow-hidden">
-        <div className="absolute inset-0 flex">
-          {/* Y-axis labels column */}
-          <div className="w-16 pr-2 flex flex-col justify-between items-end">
-            <span className="text-base font-medium text-foreground">
-              $4,000
-            </span>
-            <span className="text-base font-medium text-foreground">
-              $3,000
-            </span>
-            <span className="text-base font-medium text-foreground">
-              $2,000
-            </span>
-            <span className="text-base font-medium text-foreground">
-              $1,000
-            </span>
-            <span className="text-base font-medium text-foreground">0</span>
-          </div>
+type EChartsOption = echarts.EChartsOption;
 
-          {/* Chart area */}
-          <div className="relative flex-1">
-            {/* Grid lines */}
-            {[0, 1, 2, 3, 4].map((index) => (
-              <div
-                key={index}
-                className="absolute left-0 right-0 border-t border-dashed border-foreground/20"
-                style={{ top: `${index * 25}%` }}
-              />
-            ))}
+function ExpenseTrendChart() {
+  const chartRef = useRef<HTMLDivElement>(null);
 
-            {/* Bars */}
-            <div className="absolute left-0 right-0 bottom-0 top-0 flex items-end justify-between px-4">
-              {values.map((value, index) => {
-                const height = (value / maxValue) * 100;
-                const isHighlighted = index === 4; // May
+  useEffect(() => {
+    if (chartRef.current) {
+      const myChart = echarts.init(chartRef.current);
+      const option: EChartsOption = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          },
+          formatter: function (params: any) {
+            let result = `<div style="font-weight: bold; margin-bottom: 5px;">${params[0].name}</div>`;
+            params.forEach((item: any) => {
+              result += `<div style="display: flex; align-items: center; margin-bottom: 2px;">
+                <div style="width: 10px; height: 10px; background-color: ${item.color}; margin-right: 8px; border-radius: 2px;"></div>
+                <span>${item.seriesName}: $${item.value.toLocaleString()}</span>
+              </div>`;
+            });
+            return result;
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            axisTick: {
+              alignWithLabel: true
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            axisLabel: {
+              formatter: '${value}'
+            }
+          }
+        ],
+        series: [
+          {
+            name: 'Expenses',
+            type: 'bar',
+            barWidth: '60%',
+            data: [2750, 1800, 3800, 1120, 3760, 2300, 2130, 3446, 3910, 780, 1873, 2836],
+            itemStyle: {
+              color: '#3B82F7',
+              borderRadius: [30,30,0,0]
+            }
+          }
+        ]
+      };
 
-                return (
-                  <div
-                    key={index}
-                    className="relative flex flex-col items-center"
-                  >
-                    {isHighlighted && (
-                      <div className="absolute -top-16 flex flex-col items-center">
-                        <div className="rounded-md bg-orange-500 px-3 py-2 text-white text-sm font-medium">
-                          $2,750
-                        </div>
-                        <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-orange-500" />
-                      </div>
-                    )}
+      myChart.setOption(option);
 
-                    <div
-                      className="w-12 bg-blue-50 rounded-[10px] mb-0"
-                      style={{ height: `${height}%` }}
-                    >
-                      <div
-                        className="w-full bg-primary rounded-b-[10px]"
-                        style={{
-                          height: `${height * 0.7}%`,
-                          marginTop: `${height * 0.3}%`,
-                        }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
+      // Cleanup on unmount
+      return () => {
+        myChart.dispose();
+      };
+    }
+  }, []);
 
-      {/* X-axis labels */}
-      <div className="flex justify-between px-2 sm:px-4 lg:px-8">
-        {months.map((month) => (
-          <span
-            key={month}
-            className="text-base font-medium text-secondary-foreground"
-          >
-            {month}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
+  return <div ref={chartRef} style={{ width: '100%', height: '400px' }} />;
 }
 
 export function DashboardOverview() {
@@ -441,7 +411,7 @@ export function DashboardOverview() {
         <h2 className="mb-8 text-xl font-bold text-foreground">
           Monthly Expense Trends
         </h2>
-        <SimpleChart />
+        <ExpenseTrendChart />
       </div>
 
       {/* Footer */}
