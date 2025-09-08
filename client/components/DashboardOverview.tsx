@@ -183,10 +183,18 @@ function SimpleChart() {
         <div className="absolute inset-0 flex">
           {/* Y-axis labels column */}
           <div className="w-16 pr-2 flex flex-col justify-between items-end">
-            <span className="text-base font-medium text-foreground">$4,000</span>
-            <span className="text-base font-medium text-foreground">$3,000</span>
-            <span className="text-base font-medium text-foreground">$2,000</span>
-            <span className="text-base font-medium text-foreground">$1,000</span>
+            <span className="text-base font-medium text-foreground">
+              $4,000
+            </span>
+            <span className="text-base font-medium text-foreground">
+              $3,000
+            </span>
+            <span className="text-base font-medium text-foreground">
+              $2,000
+            </span>
+            <span className="text-base font-medium text-foreground">
+              $1,000
+            </span>
             <span className="text-base font-medium text-foreground">0</span>
           </div>
 
@@ -208,7 +216,10 @@ function SimpleChart() {
                 const isHighlighted = index === 4; // May
 
                 return (
-                  <div key={index} className="relative flex flex-col items-center">
+                  <div
+                    key={index}
+                    className="relative flex flex-col items-center"
+                  >
                     {isHighlighted && (
                       <div className="absolute -top-16 flex flex-col items-center">
                         <div className="rounded-md bg-orange-500 px-3 py-2 text-white text-sm font-medium">
