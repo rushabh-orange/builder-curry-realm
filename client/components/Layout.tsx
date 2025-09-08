@@ -280,7 +280,7 @@ function NavItem({
       onClick={onClick}
       className={cn(
         "flex w-full items-center rounded-[10px] py-3 transition-colors",
-        expanded ? "gap-3 px-5 text-left mx-0" : "justify-center px-0 mx-2",
+        expanded ? "gap-3 px-5 text-left mx-0" : "justify-center px-2 mx-2",
         active
           ? "bg-primary text-primary-foreground"
           : "text-secondary-foreground hover:bg-gray-50",
