@@ -248,10 +248,13 @@ function ExpenseTrendChart() {
       myChart.setOption(option);
 
       const handleResize = () => myChart.resize();
+      const ro = new ResizeObserver(handleResize);
+      ro.observe(chartRef.current);
       window.addEventListener("resize", handleResize);
 
       // Cleanup on unmount
       return () => {
+        ro.disconnect();
         window.removeEventListener("resize", handleResize);
         myChart.dispose();
       };
