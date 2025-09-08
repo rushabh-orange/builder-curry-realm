@@ -25,7 +25,6 @@ import {
   Reports,
 } from "@/assets/icons";
 
-
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -67,7 +66,9 @@ export function Layout({ children }: LayoutProps) {
               <span
                 className={cn(
                   "text-lg font-semibold text-foreground transition-all duration-200 overflow-hidden whitespace-nowrap",
-                  sidebarExpanded ? "opacity-100 w-auto ml-1" : "opacity-0 w-0 ml-0",
+                  sidebarExpanded
+                    ? "opacity-100 w-auto ml-1"
+                    : "opacity-0 w-0 ml-0",
                 )}
               >
                 Travel Expenses Pro
@@ -251,7 +252,9 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="h-[calc(100vh-5rem)] overflow-y-auto p-6">{children}</main>
+        <main className="h-[calc(100vh-5rem)] overflow-y-auto p-6">
+          {children}
+        </main>
       </div>
     </div>
   );
@@ -282,7 +285,9 @@ function NavItem({
           : "text-secondary-foreground hover:bg-gray-50",
       )}
     >
-      <span className={cn(active ? "text-white" : "text-secondary")}>{icon}</span>
+      <span className={cn(active ? "text-white" : "text-secondary")}>
+        {icon}
+      </span>
       <span
         className={cn(
           "text-base font-medium transition-all duration-200 overflow-hidden whitespace-nowrap",
