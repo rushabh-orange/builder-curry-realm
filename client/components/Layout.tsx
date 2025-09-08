@@ -42,11 +42,9 @@ export function Layout({ children }: LayoutProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 h-screen bg-white transition-all duration-300 ease-in-out border-r border-border",
+          "fixed left-0 top-0 z-40 h-screen bg-white transition-all duration-300 ease-in-out border-r border-border overflow-hidden",
           sidebarExpanded ? "w-[330px]" : "w-20",
         )}
-        onMouseEnter={() => sidebarCollapsed && setSidebarHover(true)}
-        onMouseLeave={() => setSidebarHover(false)}
       >
         <div className="flex h-full flex-col">
           {/* Logo Section */}
