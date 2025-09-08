@@ -221,16 +221,28 @@ export function Layout({ children }: LayoutProps) {
               <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
                 <Bell className="h-5 w-5 text-foreground" />
               </button>
-              <div className="flex items-center gap-3">
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/f608110c5bb486e70228637345583ddd9f1e7591?width=80"
-                  alt="John Admin"
-                  className="h-10 w-10 rounded-md object-cover"
-                />
-                <span className="text-sm font-medium text-foreground">
-                  John Admin
-                </span>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-3 rounded-md p-1.5 hover:bg-gray-100 transition-colors">
+                    <img
+                      src="https://api.builder.io/api/v1/image/assets/TEMP/f608110c5bb486e70228637345583ddd9f1e7591?width=80"
+                      alt="John Admin"
+                      className="h-10 w-10 rounded-md object-cover"
+                    />
+                    <span className="text-sm font-medium text-foreground">
+                      John Admin
+                    </span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Logout</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </header>
