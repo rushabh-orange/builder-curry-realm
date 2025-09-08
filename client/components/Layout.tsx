@@ -76,7 +76,7 @@ export function Layout({ children }: LayoutProps) {
       <aside
         className={cn(
           "fixed left-0 top-0 z-40 h-screen bg-white transition-all duration-700 ease-in-out border-r border-border overflow-hidden",
-          sidebarExpanded ? "w-[330px]" : "w-20",
+          sidebarExpanded ? "w-[330px]" : "w-16 sm:w-20",
         )}
       >
         <div className="flex h-full flex-col">
@@ -148,7 +148,7 @@ export function Layout({ children }: LayoutProps) {
       <div
         className={cn(
           "transition-all duration-700 ease-in-out h-screen overflow-hidden",
-          sidebarExpanded ? "ml-[330px]" : "ml-20",
+          sidebarExpanded ? "ml-[330px]" : "ml-16 sm:ml-20",
         )}
       >
         {/* Top Navbar */}
@@ -193,7 +193,7 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden p-6">
+        <main className="h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden p-4 sm:p-6">
           {children}
         </main>
       </div>
