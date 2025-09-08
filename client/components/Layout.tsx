@@ -66,7 +66,9 @@ export function Layout({ children }: LayoutProps) {
               <span
                 className={cn(
                   "text-lg font-semibold text-foreground whitespace-nowrap overflow-hidden transition-[opacity,max-width,margin] duration-700",
-                  sidebarExpanded ? "opacity-100 max-w-[220px] ml-2" : "opacity-0 max-w-0 ml-0",
+                  sidebarExpanded
+                    ? "opacity-100 max-w-[220px] ml-2"
+                    : "opacity-0 max-w-0 ml-0",
                 )}
               >
                 Travel Expenses Pro
@@ -295,7 +297,9 @@ function NavItem({
       <span
         className={cn(
           "text-base font-medium whitespace-nowrap overflow-hidden transition-[opacity,max-width,margin] duration-700 ease-in-out",
-          expanded ? "opacity-100 max-w-[200px] ml-2" : "opacity-0 max-w-0 ml-0",
+          expanded
+            ? "opacity-100 max-w-[200px] ml-2"
+            : "opacity-0 max-w-0 ml-0",
         )}
       >
         {label}
