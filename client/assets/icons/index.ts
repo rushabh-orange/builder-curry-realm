@@ -11,3 +11,7 @@ export { default as Users } from "./Users.svg?react";
 export { default as TreeStructure } from "./TreeStructure.svg?react";
 export { default as Settings } from "./Settings.svg?react";
 export { default as Reports } from "./Reports.svg?react";
+export { default as StatCardPlane } from "./StatCardPlane.svg?react";
+export { default as StatCardExpense } from "./StatCardExpense.svg?react";
+export { default as StatCardWaiting } from "./StatCardWaiting.svg?react";
+export { default as StatCardFileText } from "./StatCardFileText.svg?react";
