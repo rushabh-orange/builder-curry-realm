@@ -77,7 +77,12 @@ export function Layout({ children }: LayoutProps) {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 overflow-y-auto px-6 py-4 pb-6">
+          <nav
+            className={cn(
+              "flex-1 overflow-y-auto overflow-x-hidden py-4 pb-6",
+              sidebarExpanded ? "px-6" : "px-3",
+            )}
+          >
             <div className="space-y-8">
               {/* Dashboard Section */}
               <div>
