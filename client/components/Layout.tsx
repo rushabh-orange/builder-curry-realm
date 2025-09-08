@@ -32,11 +32,10 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [sidebarHover, setSidebarHover] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const sidebarExpanded = !sidebarCollapsed || sidebarHover;
+  const sidebarExpanded = !sidebarCollapsed;
 
   return (
     <div className="min-h-screen bg-background">
