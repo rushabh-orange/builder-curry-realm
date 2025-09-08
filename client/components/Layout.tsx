@@ -203,7 +203,7 @@ export function Layout({ children }: LayoutProps) {
       {/* Main Content */}
       <div
         className={cn(
-          "transition-all duration-300 ease-in-out",
+          "transition-all duration-300 ease-in-out h-screen overflow-hidden",
           sidebarExpanded ? "ml-[330px]" : "ml-20",
         )}
       >
