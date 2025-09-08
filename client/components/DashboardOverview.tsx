@@ -37,7 +37,7 @@ export function DashboardOverview() {
         <StatCard
           title="Active Trips"
           value="24"
-          icon={<StatCardPlane className="h-9 w-9" />}
+          icon={<StatCardPlane className="h-9 w-9 text-[#0B98D3] [&_*]:fill-current" />}
           bgColor="bg-blue-50"
         />
         <StatCard
