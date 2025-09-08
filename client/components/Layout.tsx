@@ -252,7 +252,7 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="h-[calc(100vh-5rem)] overflow-y-auto p-6">
+        <main className="h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden p-6">
           {children}
         </main>
       </div>
@@ -279,7 +279,8 @@ function NavItem({
     <button
       onClick={onClick}
       className={cn(
-        "flex w-full items-center gap-3 rounded-[10px] px-5 py-3 text-left transition-colors",
+        "flex w-full items-center rounded-[10px] py-3 transition-colors",
+        expanded ? "gap-3 px-5 text-left" : "justify-center px-0",
         active
           ? "bg-primary text-primary-foreground"
           : "text-secondary-foreground hover:bg-gray-50",
