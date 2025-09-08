@@ -73,7 +73,8 @@ export function ExpenseTrendChart({
     };
   }, [months, values, color, seriesName]);
 
-  return <div ref={ref} style={{ width: "100%", height }} />;
+  const style = typeof height === "number" ? { width: "100%", height } : { width: "100%", height: height as string };
+  return <div ref={ref} style={style} />;
 }
 
 export type { ExpenseTrendChartProps };
