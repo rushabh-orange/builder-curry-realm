@@ -1,243 +1,33 @@
-import React, { useEffect, useRef } from 'react';
+import React from "react";
+import { Plane } from "lucide-react";
 import {
-  TrendingUp,
-  Clock,
-  FileText,
-  DollarSign,
-  ArrowRight,
-} from "lucide-react";
-import * as echarts from 'echarts';
-
-interface StatCardProps {
-  title: string;
-  value: string;
-  icon: React.ReactNode;
-  bgColor: string;
-}
-
-function StatCard({ title, value, icon, bgColor }: StatCardProps) {
-  return (
-    <div className="rounded-[10px] bg-white p-6 shadow-[0_2px_2px_0_rgba(59,130,247,0.30)]">
-      <div className="flex items-center gap-4">
-        <div
-          className={`flex h-[70px] w-[70px] items-center justify-center rounded-lg ${bgColor}`}
-        >
-          {icon}
-        </div>
-        <div>
-          <p className="text-lg font-normal text-secondary-foreground">
-            {title}
-          </p>
-          <p className="text-[26px] font-bold text-foreground">{value}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-interface TravelRequestProps {
-  name: string;
-  avatar: string;
-  from: string;
-  to: string;
-  status: "pending" | "approved" | "rejected";
-}
-
-function TravelRequestItem({
-  name,
-  avatar,
-  from,
-  to,
-  status,
-}: TravelRequestProps) {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "pending":
-        return "bg-orange-50 text-orange-500";
-      case "approved":
-        return "bg-green-50 text-green-600";
-      case "rejected":
-        return "bg-red-50 text-red-500";
-      default:
-        return "bg-gray-50 text-gray-500";
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case "pending":
-        return "Pending";
-      case "approved":
-        return "Approved";
-      case "rejected":
-        return "Rejected";
-      default:
-        return "Unknown";
-    }
-  };
-
-  return (
-    <div className="flex items-center justify-between py-4">
-      <div className="flex items-center gap-4">
-        <img
-          src={avatar}
-          alt={name}
-          className="h-12 w-12 rounded-md object-cover"
-        />
-        <div>
-          <h4 className="text-lg font-medium text-foreground">{name}</h4>
-          <div className="flex items-center gap-2 text-base text-secondary-foreground">
-            <span>{from}</span>
-            <ArrowRight className="h-4 w-4 text-secondary-foreground" />
-            <span>{to}</span>
-          </div>
-        </div>
-      </div>
-      <div
-        className={`rounded px-3 py-1 text-sm font-medium ${getStatusColor(status)}`}
-      >
-        {getStatusText(status)}
-      </div>
-    </div>
-  );
-}
-
-interface ExpenseReportProps {
-  title: string;
-  submittedBy: string;
-  amount: string;
-  status: "pending" | "approved" | "rejected";
-}
-
-function ExpenseReportItem({
-  title,
-  submittedBy,
-  amount,
-  status,
-}: ExpenseReportProps) {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "pending":
-        return "bg-orange-50 text-orange-500";
-      case "approved":
-        return "bg-green-50 text-green-600";
-      case "rejected":
-        return "bg-red-50 text-red-500";
-      default:
-        return "bg-gray-50 text-gray-500";
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case "pending":
-        return "Pending";
-      case "approved":
-        return "Approved";
-      case "rejected":
-        return "Rejected";
-      default:
-        return "Unknown";
-    }
-  };
-
-  return (
-    <div className="flex items-center justify-between py-4">
-      <div>
-        <h4 className="text-lg font-medium text-foreground">{title}</h4>
-        <p className="text-base text-secondary-foreground">{submittedBy}</p>
-      </div>
-      <div className="flex items-center gap-4">
-        <p className="text-lg font-bold text-foreground">{amount}</p>
-        <div
-          className={`rounded px-3 py-1 text-sm font-medium ${getStatusColor(status)}`}
-        >
-          {getStatusText(status)}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
-type EChartsOption = echarts.EChartsOption;
-
-function ExpenseTrendChart() {
-  const chartRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (chartRef.current) {
-      const myChart = echarts.init(chartRef.current);
-      const option: EChartsOption = {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
-          },
-          formatter: function (params: any) {
-            let result = `<div style="font-weight: bold; margin-bottom: 5px;">${params[0].name}</div>`;
-            params.forEach((item: any) => {
-              result += `<div style="display: flex; align-items: center; margin-bottom: 2px;">
-                <div style="width: 10px; height: 10px; background-color: ${item.color}; margin-right: 8px; border-radius: 2px;"></div>
-                <span>${item.seriesName}: $${item.value.toLocaleString()}</span>
-              </div>`;
-            });
-            return result;
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [
-          {
-            type: 'category',
-            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            axisTick: {
-              alignWithLabel: true
-            }
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value',
-            axisLabel: {
-              formatter: '${value}'
-            }
-          }
-        ],
-        series: [
-          {
-            name: 'Expenses',
-            type: 'bar',
-            barWidth: '60%',
-            data: [2750, 1800, 3800, 1120, 3760, 2300, 2130, 3446, 3910, 780, 1873, 2836],
-            itemStyle: {
-              color: '#3B82F7',
-              borderRadius: [30,30,0,0]
-            }
-          }
-        ]
-      };
-
-      myChart.setOption(option);
-
-      // Cleanup on unmount
-      return () => {
-        myChart.dispose();
-      };
-    }
-  }, []);
-
-  return <div ref={chartRef} style={{ width: '100%', height: '400px' }} />;
-}
+  StatCard,
+  TravelRequestItem,
+  ExpenseReportItem,
+  ExpenseTrendChart,
+} from "@/components/dashboard";
 
 export function DashboardOverview() {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const values = [
+    2750, 1800, 3800, 1120, 3760, 2300, 2130, 3446, 3910, 780, 1873, 2836,
+  ];
+
   return (
     <div className="space-y-8">
-      {/* Header */}
       <div>
         <h1 className="text-[26px] font-bold text-foreground">
           Dashboard Overview
@@ -248,28 +38,13 @@ export function DashboardOverview() {
         </p>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
           title="Active Trips"
           value="24"
-          icon={
-            <svg
-              width="36"
-              height="36"
-              viewBox="0 0 36 36"
-              fill="none"
-              className="text-[#0B98D3]"
-            >
-              <path
-                d="M36 20.25C36 20.7424 35.903 21.2301 35.7146 21.685C35.5262 22.14 35.2501 22.5534 34.902 22.9016C34.5538 23.2498 34.1406 23.5261 33.6857 23.7145C33.2309 23.903 32.7434 24 32.2511 24H26.1988L19.8616 33.7304C19.4716 34.4225 18.9038 34.9978 18.2171 35.3968C17.5303 35.7958 16.7494 36.004 15.9552 35.9999C15.318 36.0001 14.6902 35.8458 14.1257 35.5502C13.5611 35.2545 13.0766 34.8264 12.7137 34.3025C12.3507 33.7786 12.1202 33.1745 12.0417 32.5419C11.9633 31.9094 12.0393 31.2672 12.2633 30.6705L15.0345 24H9.00769C7.9503 24 6.91168 23.7205 5.99708 23.1897C5.08248 22.6589 4.3244 21.8957 3.79967 20.9775L0.310168 15.24C0.161066 14.9923 0.0630765 14.7173 0.0219831 14.4311C-0.0191102 14.145 -0.00247449 13.8535 0.0709084 13.5738C0.144291 13.2942 0.272934 13.0321 0.449244 12.803C0.625553 12.5739 0.845957 12.3825 1.09744 12.24C1.49653 12.0307 1.95195 11.9542 2.39749 12.0217C2.84303 12.0891 3.25544 12.297 3.57474 12.615L5.69963 14.742C6.82427 15.8673 8.34971 16.4997 9.94042 16.5H32.2511C32.7434 16.5 33.2309 16.597 33.6857 16.7854C34.1406 16.9739 34.5538 17.2501 34.902 17.5983C35.2501 17.9466 35.5262 18.36 35.7146 18.8149C35.903 19.2699 36 19.7575 36 20.25ZM26.5992 13.5L19.8511 2.26953C19.4616 1.57805 18.8946 1.00313 18.2086 0.60416C17.5227 0.205188 16.7427 -0.00336562 15.9492 4.10762e-05C15.3121 0.000214608 14.6845 0.154776 14.1202 0.450501C13.5558 0.746226 13.0715 1.17431 12.7086 1.69813C12.3457 2.22194 12.1151 2.8259 12.0365 3.45831C11.9579 4.09073 12.0337 4.73278 12.2573 5.32953L15.4334 13.5H26.5992Z"
-                fill="currentColor"
-              />
-            </svg>
-          }
+          icon={<Plane className="h-8 w-8 text-[#0B98D3]" />}
           bgColor="bg-blue-50"
         />
-
         <StatCard
           title="Pending Expenses"
           value="$12,450"
@@ -291,7 +66,6 @@ export function DashboardOverview() {
           }
           bgColor="bg-red-50"
         />
-
         <StatCard
           title="Awaiting Approval"
           value="18"
@@ -311,7 +85,6 @@ export function DashboardOverview() {
           }
           bgColor="bg-orange-50"
         />
-
         <StatCard
           title="Monthly Budget"
           value="$45,000"
@@ -334,7 +107,6 @@ export function DashboardOverview() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* Recent Travel Requests */}
         <div className="rounded-[10px] bg-white p-6 shadow-[0_2px_2px_0_rgba(59,130,247,0.30)]">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-bold text-foreground">
@@ -371,7 +143,6 @@ export function DashboardOverview() {
           </div>
         </div>
 
-        {/* Expense Reports */}
         <div className="rounded-[10px] bg-white p-6 shadow-[0_2px_2px_0_rgba(59,130,247,0.30)]">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-bold text-foreground">
@@ -406,15 +177,13 @@ export function DashboardOverview() {
         </div>
       </div>
 
-      {/* Monthly Expense Trends */}
       <div className="rounded-[10px] bg-white p-6 shadow-[0_2px_2px_0_rgba(59,130,247,0.30)]">
         <h2 className="mb-8 text-xl font-bold text-foreground">
           Monthly Expense Trends
         </h2>
-        <ExpenseTrendChart />
+        <ExpenseTrendChart months={months} values={values} />
       </div>
 
-      {/* Footer */}
       <div className="flex items-center justify-between py-4 text-base text-primary">
         <span>© 2025 Travel Expense Pro. All rights reserved.</span>
         <div className="flex gap-8">

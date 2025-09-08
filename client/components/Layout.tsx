@@ -36,13 +36,45 @@ export function Layout({ children }: LayoutProps) {
 
   const sidebarExpanded = !sidebarCollapsed;
 
+  const sections = [
+    {
+      title: "Dashboard",
+      items: [{ label: "Overview", path: "/", Icon: User }],
+    },
+    {
+      title: "Travel Management",
+      items: [
+        { label: "Travel Request", path: "/travel-request", Icon: PlaneIcon },
+        { label: "Bookings", path: "/bookings", Icon: Calendar },
+        { label: "Itineraries", path: "/itineraries", Icon: MapPinTrack },
+      ],
+    },
+    {
+      title: "Expense Management",
+      items: [
+        { label: "Expense Reports", path: "/expense-reports", Icon: FileText },
+        { label: "Reimbursements", path: "/reimbursements", Icon: CreditCard },
+        { label: "Approvals", path: "/approvals", Icon: CheckCircle },
+      ],
+    },
+    {
+      title: "Administration",
+      items: [
+        { label: "Users", path: "/users", Icon: Users },
+        { label: "Departments", path: "/departments", Icon: TreeStructure },
+        { label: "Settings", path: "/settings", Icon: Settings },
+        { label: "Reports", path: "/reports", Icon: Reports },
+      ],
+    },
+  ] as const;
+
   return (
     <div className="min-h-screen bg-background">
       {/* Sidebar */}
       <aside
         className={cn(
           "fixed left-0 top-0 z-40 h-screen bg-white transition-all duration-700 ease-in-out border-r border-border overflow-hidden",
-          sidebarExpanded ? "w-[330px]" : "w-20",
+          sidebarExpanded ? "w-[330px]" : "w-16 sm:w-20",
         )}
       >
         <div className="flex h-full flex-col">
@@ -84,126 +116,27 @@ export function Layout({ children }: LayoutProps) {
             )}
           >
             <div className="space-y-8">
-              {/* Dashboard Section */}
-              <div>
-                {sidebarExpanded && (
-                  <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-foreground">
-                    Dashboard
-                  </h3>
-                )}
-                <div className="space-y-2">
-                  <NavItem
-                    icon={<User className="h-5 w-5" />}
-                    label="Overview"
-                    active={location.pathname === "/"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/")}
-                  />
+              {sections.map((section) => (
+                <div key={section.title}>
+                  {sidebarExpanded && (
+                    <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-foreground">
+                      {section.title}
+                    </h3>
+                  )}
+                  <div className="space-y-2">
+                    {section.items.map(({ label, path, Icon }) => (
+                      <NavItem
+                        key={label}
+                        icon={<Icon className="h-5 w-5" />}
+                        label={label}
+                        active={location.pathname === path}
+                        expanded={sidebarExpanded}
+                        onClick={() => navigate(path)}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-
-              {/* Travel Management Section */}
-              <div>
-                {sidebarExpanded && (
-                  <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-foreground">
-                    Travel Management
-                  </h3>
-                )}
-                <div className="space-y-2">
-                  <NavItem
-                    icon={<PlaneIcon className="h-5 w-5" />}
-                    label="Travel Request"
-                    active={location.pathname === "/travel-request"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/travel-request")}
-                  />
-                  <NavItem
-                    icon={<Calendar className="h-5 w-5" />}
-                    label="Bookings"
-                    active={location.pathname === "/bookings"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/bookings")}
-                  />
-                  <NavItem
-                    icon={<MapPinTrack className="h-5 w-5" />}
-                    label="Itineraries"
-                    active={location.pathname === "/itineraries"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/itineraries")}
-                  />
-                </div>
-              </div>
-
-              {/* Expense Management Section */}
-              <div>
-                {sidebarExpanded && (
-                  <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-foreground">
-                    Expense Management
-                  </h3>
-                )}
-                <div className="space-y-2">
-                  <NavItem
-                    icon={<FileText className="h-5 w-5" />}
-                    label="Expense Reports"
-                    active={location.pathname === "/expense-reports"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/expense-reports")}
-                  />
-                  <NavItem
-                    icon={<CreditCard className="h-5 w-5" />}
-                    label="Reimbursements"
-                    active={location.pathname === "/reimbursements"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/reimbursements")}
-                  />
-                  <NavItem
-                    icon={<CheckCircle className="h-5 w-5" />}
-                    label="Approvals"
-                    active={location.pathname === "/approvals"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/approvals")}
-                  />
-                </div>
-              </div>
-
-              {/* Administration Section */}
-              <div>
-                {sidebarExpanded && (
-                  <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-foreground">
-                    Administration
-                  </h3>
-                )}
-                <div className="space-y-2">
-                  <NavItem
-                    icon={<Users className="h-5 w-5" />}
-                    label="Users"
-                    active={location.pathname === "/users"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/users")}
-                  />
-                  <NavItem
-                    icon={<TreeStructure className="h-5 w-5" />}
-                    label="Departments"
-                    active={location.pathname === "/departments"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/departments")}
-                  />
-                  <NavItem
-                    icon={<Settings className="h-5 w-5" />}
-                    label="Settings"
-                    active={location.pathname === "/settings"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/settings")}
-                  />
-                  <NavItem
-                    icon={<Reports className="h-5 w-5" />}
-                    label="Reports"
-                    active={location.pathname === "/reports"}
-                    expanded={sidebarExpanded}
-                    onClick={() => navigate("/reports")}
-                  />
-                </div>
-              </div>
+              ))}
             </div>
           </nav>
         </div>
@@ -213,13 +146,14 @@ export function Layout({ children }: LayoutProps) {
       <div
         className={cn(
           "transition-all duration-700 ease-in-out h-screen overflow-hidden",
-          sidebarExpanded ? "ml-[330px]" : "ml-20",
+          sidebarExpanded ? "ml-[330px]" : "ml-16 sm:ml-20",
         )}
       >
         {/* Top Navbar */}
         <header className="sticky top-0 z-30 h-20 bg-white border-b border-border px-6">
           <div className="flex h-full items-center justify-between">
             <button
+              aria-label="Toggle sidebar"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
               className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
             >
@@ -227,7 +161,10 @@ export function Layout({ children }: LayoutProps) {
             </button>
 
             <div className="flex items-center gap-4">
-              <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+              <button
+                aria-label="Notifications"
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+              >
                 <Bell className="h-5 w-5 text-foreground" />
               </button>
               <DropdownMenu>
@@ -257,7 +194,7 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden p-6">
+        <main className="h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden p-4 sm:p-6">
           {children}
         </main>
       </div>
@@ -291,7 +228,12 @@ function NavItem({
           : "text-secondary-foreground hover:bg-gray-50",
       )}
     >
-      <span className={cn(active ? "text-white" : "text-secondary")}>
+      <span
+        className={cn(
+          active ? "text-white" : "text-[#6B7280]",
+          "[&_*]:fill-current [&_*]:stroke-current",
+        )}
+      >
         {icon}
       </span>
       <span
