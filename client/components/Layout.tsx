@@ -64,11 +64,14 @@ export function Layout({ children }: LayoutProps) {
                   />
                 </svg>
               </div>
-              {sidebarExpanded && (
-                <span className="text-lg font-semibold text-foreground">
-                  Travel Expenses Pro
-                </span>
-              )}
+              <span
+                className={cn(
+                  "text-lg font-semibold text-foreground transition-all duration-200 overflow-hidden whitespace-nowrap",
+                  sidebarExpanded ? "opacity-100 w-auto ml-1" : "opacity-0 w-0 ml-0",
+                )}
+              >
+                Travel Expenses Pro
+              </span>
             </div>
           </div>
 
