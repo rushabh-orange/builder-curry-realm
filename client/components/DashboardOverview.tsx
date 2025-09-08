@@ -1,6 +1,16 @@
 import React from "react";
-import { StatCard, TravelRequestItem, ExpenseReportItem, ExpenseTrendChart } from "@/components/dashboard";
-import { StatCardPlane, StatCardFileText, StatCardWaiting, StatCardExpense } from "@/assets/icons";
+import {
+  StatCard,
+  TravelRequestItem,
+  ExpenseReportItem,
+  ExpenseTrendChart,
+} from "@/components/dashboard";
+import {
+  StatCardPlane,
+  StatCardFileText,
+  StatCardWaiting,
+  StatCardExpense,
+} from "@/assets/icons";
 
 export function DashboardOverview() {
   const months = [
@@ -37,7 +47,9 @@ export function DashboardOverview() {
         <StatCard
           title="Active Trips"
           value="24"
-          icon={<StatCardPlane className="h-9 w-9 text-[#0B98D3] [&_*]:fill-current" />}
+          icon={
+            <StatCardPlane className="h-9 w-9 text-[#0B98D3] [&_*]:fill-current" />
+          }
           bgColor="bg-blue-50"
         />
         <StatCard
