@@ -65,10 +65,8 @@ export function Layout({ children }: LayoutProps) {
               </div>
               <span
                 className={cn(
-                  "text-lg font-semibold text-foreground transition-all duration-200 overflow-hidden whitespace-nowrap",
-                  sidebarExpanded
-                    ? "opacity-100 w-auto ml-1"
-                    : "opacity-0 w-0 ml-0",
+                  "text-lg font-semibold text-foreground whitespace-nowrap overflow-hidden transition-[opacity,max-width,margin] duration-300",
+                  sidebarExpanded ? "opacity-100 max-w-[220px] ml-2" : "opacity-0 max-w-0 ml-0",
                 )}
               >
                 Travel Expenses Pro
