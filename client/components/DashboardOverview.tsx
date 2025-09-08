@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 import {
   TrendingUp,
   Clock,
@@ -6,7 +6,7 @@ import {
   DollarSign,
   ArrowRight,
 } from "lucide-react";
-import * as echarts from 'echarts';
+import * as echarts from "echarts";
 
 interface StatCardProps {
   title: string;
@@ -159,7 +159,6 @@ function ExpenseReportItem({
   );
 }
 
-
 type EChartsOption = echarts.EChartsOption;
 
 function ExpenseTrendChart() {
@@ -170,15 +169,15 @@ function ExpenseTrendChart() {
       const myChart = echarts.init(chartRef.current);
       const option: EChartsOption = {
         tooltip: {
-          trigger: 'axis',
-          axisPointer: { type: 'shadow' },
-          backgroundColor: 'rgba(255,255,255,0.98)',
-          borderColor: 'rgba(2,6,23,0.06)',
+          trigger: "axis",
+          axisPointer: { type: "shadow" },
+          backgroundColor: "rgba(255,255,255,0.98)",
+          borderColor: "rgba(2,6,23,0.06)",
           borderWidth: 1,
           padding: 0,
           extraCssText:
-            'box-shadow:0 8px 24px rgba(15,23,42,0.12); border-radius:10px; overflow:hidden;',
-          textStyle: { color: '#0F172A', fontSize: 12 },
+            "box-shadow:0 8px 24px rgba(15,23,42,0.12); border-radius:10px; overflow:hidden;",
+          textStyle: { color: "#0F172A", fontSize: 12 },
           formatter: function (params: any) {
             const p = Array.isArray(params) ? params[0] : params;
             const value = Number(p.value).toLocaleString();
@@ -194,56 +193,72 @@ function ExpenseTrendChart() {
           },
         },
         grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true,
         },
         xAxis: [
           {
-            type: 'category',
-            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            type: "category",
+            data: [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sept",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
             axisTick: {
-              alignWithLabel: true
-            }
-          }
+              alignWithLabel: true,
+            },
+          },
         ],
         yAxis: [
           {
-            type: 'value',
+            type: "value",
             axisLabel: {
-              formatter: '${value}'
-            }
-          }
+              formatter: "${value}",
+            },
+          },
         ],
         series: [
           {
-            name: 'Expenses',
-            type: 'bar',
-            barWidth: '60%',
-            data: [2750, 1800, 3800, 1120, 3760, 2300, 2130, 3446, 3910, 780, 1873, 2836],
+            name: "Expenses",
+            type: "bar",
+            barWidth: "60%",
+            data: [
+              2750, 1800, 3800, 1120, 3760, 2300, 2130, 3446, 3910, 780, 1873,
+              2836,
+            ],
             itemStyle: {
-              color: '#3B82F7',
-              borderRadius: [30,30,0,0]
-            }
-          }
-        ]
+              color: "#3B82F7",
+              borderRadius: [30, 30, 0, 0],
+            },
+          },
+        ],
       };
 
       myChart.setOption(option);
 
       const handleResize = () => myChart.resize();
-      window.addEventListener('resize', handleResize);
+      window.addEventListener("resize", handleResize);
 
       // Cleanup on unmount
       return () => {
-        window.removeEventListener('resize', handleResize);
+        window.removeEventListener("resize", handleResize);
         myChart.dispose();
       };
     }
   }, []);
 
-  return <div ref={chartRef} style={{ width: '100%', height: '400px' }} />;
+  return <div ref={chartRef} style={{ width: "100%", height: "400px" }} />;
 }
 
 export function DashboardOverview() {
