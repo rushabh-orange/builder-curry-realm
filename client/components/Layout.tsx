@@ -248,7 +248,7 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="p-6">{children}</main>
+        <main className="h-[calc(100vh-5rem)] overflow-y-auto p-6">{children}</main>
       </div>
     </div>
   );
