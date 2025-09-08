@@ -179,67 +179,67 @@ function SimpleChart() {
 
   return (
     <div className="space-y-6">
-      <div className="relative h-80">
-        {/* Y-axis labels */}
-        <div className="absolute left-0 top-0 flex h-full flex-col justify-between text-right">
-          <span className="text-base font-medium text-foreground">$4,000</span>
-          <span className="text-base font-medium text-foreground">$3,000</span>
-          <span className="text-base font-medium text-foreground">$2,000</span>
-          <span className="text-base font-medium text-foreground">$1,000</span>
-          <span className="text-base font-medium text-foreground">0</span>
-        </div>
+      <div className="relative h-80 overflow-hidden">
+        <div className="absolute inset-0 flex">
+          {/* Y-axis labels column */}
+          <div className="w-16 pr-2 flex flex-col justify-between items-end">
+            <span className="text-base font-medium text-foreground">$4,000</span>
+            <span className="text-base font-medium text-foreground">$3,000</span>
+            <span className="text-base font-medium text-foreground">$2,000</span>
+            <span className="text-base font-medium text-foreground">$1,000</span>
+            <span className="text-base font-medium text-foreground">0</span>
+          </div>
 
-        {/* Grid lines */}
-        <div className="absolute left-16 top-0 h-full w-full">
-          {[0, 1, 2, 3, 4].map((index) => (
-            <div
-              key={index}
-              className="absolute w-full border-t border-dashed border-foreground/20"
-              style={{ top: `${index * 25}%` }}
-            />
-          ))}
-        </div>
+          {/* Chart area */}
+          <div className="relative flex-1">
+            {/* Grid lines */}
+            {[0, 1, 2, 3, 4].map((index) => (
+              <div
+                key={index}
+                className="absolute left-0 right-0 border-t border-dashed border-foreground/20"
+                style={{ top: `${index * 25}%` }}
+              />
+            ))}
 
-        {/* Chart bars */}
-        <div className="absolute left-16 top-0 flex h-full w-full items-end justify-between px-4">
-          {values.map((value, index) => {
-            const height = (value / maxValue) * 100;
-            const isHighlighted = index === 4; // May
+            {/* Bars */}
+            <div className="absolute left-0 right-0 bottom-0 top-0 flex items-end justify-between px-4">
+              {values.map((value, index) => {
+                const height = (value / maxValue) * 100;
+                const isHighlighted = index === 4; // May
 
-            return (
-              <div key={index} className="relative flex flex-col items-center">
-                {/* Highlighted value tooltip */}
-                {isHighlighted && (
-                  <div className="absolute -top-16 flex flex-col items-center">
-                    <div className="rounded-md bg-orange-500 px-3 py-2 text-white text-sm font-medium">
-                      $2,750
+                return (
+                  <div key={index} className="relative flex flex-col items-center">
+                    {isHighlighted && (
+                      <div className="absolute -top-16 flex flex-col items-center">
+                        <div className="rounded-md bg-orange-500 px-3 py-2 text-white text-sm font-medium">
+                          $2,750
+                        </div>
+                        <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-orange-500" />
+                      </div>
+                    )}
+
+                    <div
+                      className="w-12 bg-blue-50 rounded-[10px] mb-0"
+                      style={{ height: `${height}%` }}
+                    >
+                      <div
+                        className="w-full bg-primary rounded-b-[10px]"
+                        style={{
+                          height: `${height * 0.7}%`,
+                          marginTop: `${height * 0.3}%`,
+                        }}
+                      />
                     </div>
-                    <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-orange-500" />
                   </div>
-                )}
-
-                {/* Background bar */}
-                <div
-                  className="w-12 bg-blue-50 rounded-[10px] mb-0"
-                  style={{ height: `${height}%` }}
-                >
-                  {/* Foreground bar */}
-                  <div
-                    className="w-full bg-primary rounded-b-[10px]"
-                    style={{
-                      height: `${height * 0.7}%`,
-                      marginTop: `${height * 0.3}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 
       {/* X-axis labels */}
-      <div className="flex justify-between px-20">
+      <div className="flex justify-between px-2 sm:px-4 lg:px-8">
         {months.map((month) => (
           <span
             key={month}
