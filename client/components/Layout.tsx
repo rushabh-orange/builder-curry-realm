@@ -4,17 +4,19 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   Bell,
   Menu,
-  Users,
-  Plane,
+  User,
+  PlaneIcon,
   Calendar,
-  MapPin,
+  MapPinTrack,
   FileText,
   CreditCard,
   CheckCircle,
+  Users,
+  TreeStructure,
   Settings,
-  BarChart3,
-  Building2,
-} from "lucide-react";
+  Reports,
+} from "@/assets/icons";
+
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -77,7 +79,7 @@ export function Layout({ children }: LayoutProps) {
                 )}
                 <div className="space-y-2">
                   <NavItem
-                    icon={<Users className="h-5 w-5" />}
+                    icon={<User className="h-5 w-5" />}
                     label="Overview"
                     active={location.pathname === "/"}
                     expanded={sidebarExpanded}
@@ -95,7 +97,7 @@ export function Layout({ children }: LayoutProps) {
                 )}
                 <div className="space-y-2">
                   <NavItem
-                    icon={<Plane className="h-5 w-5" />}
+                    icon={<PlaneIcon className="h-5 w-5" />}
                     label="Travel Request"
                     active={location.pathname === "/travel-request"}
                     expanded={sidebarExpanded}
@@ -109,7 +111,7 @@ export function Layout({ children }: LayoutProps) {
                     onClick={() => navigate("/bookings")}
                   />
                   <NavItem
-                    icon={<MapPin className="h-5 w-5" />}
+                    icon={<MapPinTrack className="h-5 w-5" />}
                     label="Itineraries"
                     active={location.pathname === "/itineraries"}
                     expanded={sidebarExpanded}
@@ -166,7 +168,7 @@ export function Layout({ children }: LayoutProps) {
                     onClick={() => navigate("/users")}
                   />
                   <NavItem
-                    icon={<Building2 className="h-5 w-5" />}
+                    icon={<TreeStructure className="h-5 w-5" />}
                     label="Departments"
                     active={location.pathname === "/departments"}
                     expanded={sidebarExpanded}
@@ -180,7 +182,7 @@ export function Layout({ children }: LayoutProps) {
                     onClick={() => navigate("/settings")}
                   />
                   <NavItem
-                    icon={<BarChart3 className="h-5 w-5" />}
+                    icon={<Reports className="h-5 w-5" />}
                     label="Reports"
                     active={location.pathname === "/reports"}
                     expanded={sidebarExpanded}
