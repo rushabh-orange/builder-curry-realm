@@ -7,7 +7,7 @@ interface ExpenseTrendChartProps {
   months: string[];
   values: number[];
   color?: string;
-  height?: number;
+  height?: number | string;
   seriesName?: string;
 }
 
@@ -15,7 +15,7 @@ export function ExpenseTrendChart({
   months,
   values,
   color = "#3B82F7",
-  height = 400,
+  height = "clamp(240px, 40vh, 400px)",
   seriesName = "Expenses",
 }: ExpenseTrendChartProps) {
   const ref = useRef<HTMLDivElement>(null);
