@@ -232,8 +232,12 @@ function ExpenseTrendChart() {
 
       myChart.setOption(option);
 
+      const handleResize = () => myChart.resize();
+      window.addEventListener('resize', handleResize);
+
       // Cleanup on unmount
       return () => {
+        window.removeEventListener('resize', handleResize);
         myChart.dispose();
       };
     }
