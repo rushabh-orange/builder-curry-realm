@@ -1,11 +1,6 @@
 import React from "react";
-import { Plane } from "lucide-react";
-import {
-  StatCard,
-  TravelRequestItem,
-  ExpenseReportItem,
-  ExpenseTrendChart,
-} from "@/components/dashboard";
+import { StatCard, TravelRequestItem, ExpenseReportItem, ExpenseTrendChart } from "@/components/dashboard";
+import { StatCardPlane, StatCardFileText, StatCardWaiting, StatCardExpense } from "@/assets/icons";
 
 export function DashboardOverview() {
   const months = [
