@@ -12,24 +12,23 @@ import {
   getExpenseReport,
   updateExpenseReportStatus,
 } from "./routes/travel";
+import { loginHandler } from "./routes/auth";
 
 export function createServer() {
   const app = express();
 
-  // Middleware
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // Example API routes
   app.get("/api/ping", (_req, res) => {
     const ping = process.env.PING_MESSAGE ?? "ping";
     res.json({ message: ping });
   });
 
   app.get("/api/demo", handleDemo);
+  app.post("/api/login", loginHandler);
 
-  // Travel Admin Dashboard API routes
   app.get("/api/stats", getStats);
   app.get("/api/travel-requests", getTravelRequests);
   app.get("/api/travel-requests/:id", getTravelRequest);

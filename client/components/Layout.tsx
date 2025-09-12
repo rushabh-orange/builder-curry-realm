@@ -24,6 +24,7 @@ import {
   Settings,
   Reports,
 } from "@/assets/icons";
+import { clearAuth } from "@/lib/auth";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -70,7 +71,6 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Sidebar */}
       <aside
         className={cn(
           "fixed left-0 top-0 z-40 h-screen bg-white transition-all duration-700 ease-in-out border-r border-border overflow-hidden",
@@ -78,7 +78,6 @@ export function Layout({ children }: LayoutProps) {
         )}
       >
         <div className="flex h-full flex-col">
-          {/* Logo Section */}
           <div className="flex h-20 items-center px-6">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
@@ -108,7 +107,6 @@ export function Layout({ children }: LayoutProps) {
             </div>
           </div>
 
-          {/* Navigation */}
           <nav
             className={cn(
               "flex-1 overflow-y-auto overflow-x-hidden py-4 pb-6",
@@ -142,14 +140,12 @@ export function Layout({ children }: LayoutProps) {
         </div>
       </aside>
 
-      {/* Main Content */}
       <div
         className={cn(
           "transition-all duration-700 ease-in-out h-screen overflow-hidden",
           sidebarExpanded ? "ml-[330px]" : "ml-16 sm:ml-20",
         )}
       >
-        {/* Top Navbar */}
         <header className="sticky top-0 z-30 h-20 bg-white border-b border-border px-6">
           <div className="flex h-full items-center justify-between">
             <button
@@ -186,14 +182,13 @@ export function Layout({ children }: LayoutProps) {
                   <DropdownMenuItem>Profile</DropdownMenuItem>
                   <DropdownMenuItem>Settings</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Logout</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { clearAuth(); navigate("/login", { replace: true }); }}>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </div>
         </header>
 
-        {/* Page Content */}
         <main className="h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden p-4 sm:p-6">
           {children}
         </main>
@@ -210,13 +205,7 @@ interface NavItemProps {
   onClick?: () => void;
 }
 
-function NavItem({
-  icon,
-  label,
-  active = false,
-  expanded,
-  onClick,
-}: NavItemProps) {
+function NavItem({ icon, label, active = false, expanded, onClick }: NavItemProps) {
   return (
     <button
       onClick={onClick}
@@ -228,20 +217,11 @@ function NavItem({
           : "text-secondary-foreground hover:bg-gray-50",
       )}
     >
-      <span
-        className={cn(
-          active ? "text-white" : "text-[#6B7280]",
-          "[&_*]:fill-current [&_*]:stroke-current",
-        )}
-      >
-        {icon}
-      </span>
+      <span className={cn(active ? "text-white" : "text-[#6B7280]", "[&_*]:fill-current [&_*]:stroke-current")}>{icon}</span>
       <span
         className={cn(
           "text-base font-medium whitespace-nowrap overflow-hidden transition-[opacity,max-width,margin] duration-700 ease-in-out",
-          expanded
-            ? "opacity-100 max-w-[200px] ml-2"
-            : "opacity-0 max-w-0 ml-0",
+          expanded ? "opacity-100 max-w-[200px] ml-2" : "opacity-0 max-w-0 ml-0",
         )}
       >
         {label}
