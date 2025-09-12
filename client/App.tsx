@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import TravelRequestApprovals from "./pages/TravelRequestApprovals";
 import { PlaceholderPage } from "./pages/PlaceholderPage";
 import Login from "./pages/Login";
 import { isAuthenticated } from "@/lib/auth";
@@ -41,10 +42,7 @@ const App = () => (
             path="/travel-request"
             element={
               <Protected>
-                <PlaceholderPage
-                  title="Travel Request"
-                  description="Manage and submit travel requests"
-                />
+                <TravelRequestApprovals />
               </Protected>
             }
           />
@@ -96,10 +94,7 @@ const App = () => (
             path="/approvals"
             element={
               <Protected>
-                <PlaceholderPage
-                  title="Approvals"
-                  description="Review and approve travel requests"
-                />
+                <TravelRequestApprovals />
               </Protected>
             }
           />

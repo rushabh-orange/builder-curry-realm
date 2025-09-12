@@ -7,6 +7,13 @@ export interface StatsResponse {
   monthlyBudget: string;
 }
 
+export interface ApprovalStats {
+  pendingApproval: number;
+  approvedToday: number;
+  totalBudget: string;
+  rejected: number;
+}
+
 export interface TravelRequest {
   id: string;
   name: string;
@@ -14,6 +21,28 @@ export interface TravelRequest {
   from: string;
   to: string;
   status: "pending" | "approved" | "rejected";
+  requestDate: string;
+}
+
+export interface TravelRequestApproval {
+  id: string;
+  employee: {
+    name: string;
+    avatar: string;
+    department: string;
+  };
+  destination: {
+    location: string;
+    purpose: string;
+  };
+  travelDates: {
+    startDate: string;
+    endDate: string;
+    duration: string;
+  };
+  budget: string;
+  status: "pending" | "approved" | "rejected";
+  priority: "high" | "medium" | "low";
   requestDate: string;
 }
 
@@ -37,6 +66,13 @@ const mockStats: StatsResponse = {
   pendingExpenses: "$12,450",
   awaitingApproval: 18,
   monthlyBudget: "$45,000",
+};
+
+const mockApprovalStats: ApprovalStats = {
+  pendingApproval: 12,
+  approvedToday: 8,
+  totalBudget: "$45.2K",
+  rejected: 3,
 };
 
 const mockTravelRequests: TravelRequest[] = [
@@ -69,6 +105,93 @@ const mockTravelRequests: TravelRequest[] = [
     to: "Berlin",
     status: "rejected",
     requestDate: "2025-01-13",
+  },
+];
+
+const mockTravelRequestApprovals: TravelRequestApproval[] = [
+  {
+    id: "1",
+    employee: {
+      name: "Sarah Johnson",
+      avatar: "https://api.builder.io/api/v1/image/assets/TEMP/4fa4c38ef3892012b166bc2fbb474ffbd49bda2e?width=100",
+      department: "Engineering",
+    },
+    destination: {
+      location: "San Francisco, CA",
+      purpose: "Client Meeting",
+    },
+    travelDates: {
+      startDate: "2025-03-15",
+      endDate: "2025-03-18",
+      duration: "4 days",
+    },
+    budget: "$2,450",
+    status: "pending",
+    priority: "high",
+    requestDate: "2025-01-15",
+  },
+  {
+    id: "2",
+    employee: {
+      name: "Mike Chen",
+      avatar: "https://api.builder.io/api/v1/image/assets/TEMP/584eb215fe812bf81c2c9ffc953c457482b1f3de?width=100",
+      department: "San Francisco",
+    },
+    destination: {
+      location: "New York, NY",
+      purpose: "Conference",
+    },
+    travelDates: {
+      startDate: "2025-03-22",
+      endDate: "2025-03-22",
+      duration: "1 day",
+    },
+    budget: "$3,200",
+    status: "pending",
+    priority: "medium",
+    requestDate: "2025-01-14",
+  },
+  {
+    id: "3",
+    employee: {
+      name: "Sarah Johnson",
+      avatar: "https://api.builder.io/api/v1/image/assets/TEMP/4fa4c38ef3892012b166bc2fbb474ffbd49bda2e?width=100",
+      department: "Engineering",
+    },
+    destination: {
+      location: "San Francisco, CA",
+      purpose: "Client Meeting",
+    },
+    travelDates: {
+      startDate: "2025-03-15",
+      endDate: "2025-03-18",
+      duration: "4 days",
+    },
+    budget: "$2,450",
+    status: "pending",
+    priority: "high",
+    requestDate: "2025-01-13",
+  },
+  {
+    id: "4",
+    employee: {
+      name: "Mike Chen",
+      avatar: "https://api.builder.io/api/v1/image/assets/TEMP/584eb215fe812bf81c2c9ffc953c457482b1f3de?width=100",
+      department: "San Francisco",
+    },
+    destination: {
+      location: "New York, NY",
+      purpose: "Conference",
+    },
+    travelDates: {
+      startDate: "2025-03-22",
+      endDate: "2025-03-22",
+      duration: "1 day",
+    },
+    budget: "$3,200",
+    status: "pending",
+    priority: "medium",
+    requestDate: "2025-01-12",
   },
 ];
 
@@ -119,8 +242,21 @@ export const getStats: RequestHandler = (req, res) => {
   res.json(mockStats);
 };
 
+export const getApprovalStats: RequestHandler = (req, res) => {
+  res.json(mockApprovalStats);
+};
+
 export const getTravelRequests: RequestHandler = (req, res) => {
   res.json(mockTravelRequests);
+};
+
+export const getTravelRequestApprovals: RequestHandler = (req, res) => {
+  res.json({
+    requests: mockTravelRequestApprovals,
+    total: 45,
+    page: 1,
+    limit: 10,
+  });
 };
 
 export const getExpenseReports: RequestHandler = (req, res) => {
@@ -147,7 +283,7 @@ export const updateTravelRequestStatus: RequestHandler = (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
-  const requestIndex = mockTravelRequests.findIndex((r) => r.id === id);
+  const requestIndex = mockTravelRequestApprovals.findIndex((r) => r.id === id);
 
   if (requestIndex === -1) {
     return res.status(404).json({ error: "Travel request not found" });
@@ -157,8 +293,8 @@ export const updateTravelRequestStatus: RequestHandler = (req, res) => {
     return res.status(400).json({ error: "Invalid status" });
   }
 
-  mockTravelRequests[requestIndex].status = status;
-  res.json(mockTravelRequests[requestIndex]);
+  mockTravelRequestApprovals[requestIndex].status = status as "pending" | "approved" | "rejected";
+  res.json(mockTravelRequestApprovals[requestIndex]);
 };
 
 // Individual expense report handlers

@@ -4,7 +4,9 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import {
   getStats,
+  getApprovalStats,
   getTravelRequests,
+  getTravelRequestApprovals,
   getExpenseReports,
   getMonthlyExpenses,
   getTravelRequest,
@@ -30,7 +32,9 @@ export function createServer() {
   app.post("/api/login", loginHandler);
 
   app.get("/api/stats", getStats);
+  app.get("/api/approval-stats", getApprovalStats);
   app.get("/api/travel-requests", getTravelRequests);
+  app.get("/api/travel-request-approvals", getTravelRequestApprovals);
   app.get("/api/travel-requests/:id", getTravelRequest);
   app.put("/api/travel-requests/:id/status", updateTravelRequestStatus);
   app.get("/api/expense-reports", getExpenseReports);
