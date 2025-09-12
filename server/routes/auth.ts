@@ -34,6 +34,12 @@ export const loginHandler: RequestHandler = (req, res) => {
 
   return res.json({
     token,
-    user: { id: found.id, name: found.name, email: found.email, role: found.role, avatar: found.avatar },
+    user: {
+      id: found.id,
+      name: found.name,
+      email: found.email,
+      role: found.role,
+      avatar: found.avatar,
+    },
   });
 };

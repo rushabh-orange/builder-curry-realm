@@ -182,7 +182,14 @@ export function Layout({ children }: LayoutProps) {
                   <DropdownMenuItem>Profile</DropdownMenuItem>
                   <DropdownMenuItem>Settings</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => { clearAuth(); navigate("/login", { replace: true }); }}>Logout</DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      clearAuth();
+                      navigate("/login", { replace: true });
+                    }}
+                  >
+                    Logout
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -205,7 +212,13 @@ interface NavItemProps {
   onClick?: () => void;
 }
 
-function NavItem({ icon, label, active = false, expanded, onClick }: NavItemProps) {
+function NavItem({
+  icon,
+  label,
+  active = false,
+  expanded,
+  onClick,
+}: NavItemProps) {
   return (
     <button
       onClick={onClick}
@@ -217,11 +230,20 @@ function NavItem({ icon, label, active = false, expanded, onClick }: NavItemProp
           : "text-secondary-foreground hover:bg-gray-50",
       )}
     >
-      <span className={cn(active ? "text-white" : "text-[#6B7280]", "[&_*]:fill-current [&_*]:stroke-current")}>{icon}</span>
+      <span
+        className={cn(
+          active ? "text-white" : "text-[#6B7280]",
+          "[&_*]:fill-current [&_*]:stroke-current",
+        )}
+      >
+        {icon}
+      </span>
       <span
         className={cn(
           "text-base font-medium whitespace-nowrap overflow-hidden transition-[opacity,max-width,margin] duration-700 ease-in-out",
-          expanded ? "opacity-100 max-w-[200px] ml-2" : "opacity-0 max-w-0 ml-0",
+          expanded
+            ? "opacity-100 max-w-[200px] ml-2"
+            : "opacity-0 max-w-0 ml-0",
         )}
       >
         {label}
