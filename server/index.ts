@@ -1,59 +1,63 @@
-// server/index.ts
 import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
-import morgan from "morgan"; // optional; add to package.json if not present
+import morgan from "morgan"; // for request logging
 
 import { handleDemo } from "./routes/demo";
-import travelRoutes from "./routes/travel"; // export default or route object
-import authRoutes from "./routes/auth"; // if exists
+import travelRoutes from "./routes/travel";
+import { loginHandler } from "./routes/auth";
 
 // --- ENV checks ---
 const requiredEnv = ["NODE_ENV", "PORT"];
 const missing = requiredEnv.filter((k) => !process.env[k]);
 if (missing.length) {
-  console.error("Missing required env vars:", missing.join(", "));
-  // Fail fast in non-test environments
+  console.error("❌ Missing required env vars:", missing.join(", "));
   if (process.env.NODE_ENV !== "test") process.exit(1);
 }
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// logging - only in dev
+// logging in dev
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-// mount routes
-app.use("/api/demo", handleDemo);
+// routes
+app.get("/api/ping", (_req, res) => {
+  const ping = process.env.PING_MESSAGE ?? "pong";
+  res.json({ message: ping });
+});
+
+app.get("/api/demo", handleDemo);
+app.post("/api/login", loginHandler);
+
+// travel routes mounted under /api/travel
 app.use("/api/travel", travelRoutes);
-app.use("/api/auth", authRoutes);
 
 // 404 handler
-app.use((req: Request, res: Response) =>
-  res.status(404).json({ error: "Not Found", path: req.originalUrl })
-);
+app.use((req: Request, res: Response) => {
+  res.status(404).json({ error: "Not Found", path: req.originalUrl });
+});
 
-// centralized error handler
+// error handler
 interface AppError extends Error {
   status?: number;
   details?: any;
 }
 
 app.use(
-  (err: AppError, req: Request, res: Response, next: NextFunction) => {
-    // log full error on server
-    console.error(err);
+  (err: AppError, req: Request, res: Response, _next: NextFunction) => {
+    console.error("🔥 Error:", err);
 
     const status = err.status || 500;
     const payload: any = { message: err.message || "Internal Server Error" };
 
-    // include details (non-sensitive) when provided
     if (err.details) payload.details = err.details;
 
-    // In development include stack
     if (process.env.NODE_ENV === "development") {
       payload.stack = err.stack;
     }
@@ -69,6 +73,6 @@ export function createServer() {
 if (require.main === module) {
   const port = Number(process.env.PORT || 3000);
   app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}`);
+    console.log(`✅ Server running at http://localhost:${port}`);
   });
 }
