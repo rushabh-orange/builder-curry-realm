@@ -1,4 +1,8 @@
+import express from "express";
 import { RequestHandler } from "express";
+import { body, param, validationResult } from "express-validator";
+
+const router = express.Router();
 
 export interface StatsResponse {
   activeTrips: number;
@@ -237,92 +241,81 @@ const mockMonthlyExpenses: MonthlyExpense[] = [
   { month: "Dec", amount: 2000 },
 ];
 
-// API Handlers
-export const getStats: RequestHandler = (req, res) => {
-  res.json(mockStats);
-};
+// ---- Async handler wrapper ----
+const asyncHandler =
+  (fn: RequestHandler) =>
+  (req: any, res: any, next: any) =>
+    Promise.resolve(fn(req, res, next)).catch(next);
 
-export const getApprovalStats: RequestHandler = (req, res) => {
-  res.json(mockApprovalStats);
-};
+// ---- Routes ----
+router.get("/stats", asyncHandler((req, res) => res.json(mockStats)));
+router.get("/approval-stats", asyncHandler((req, res) => res.json(mockApprovalStats)));
 
-export const getTravelRequests: RequestHandler = (req, res) => {
-  res.json(mockTravelRequests);
-};
+router.get("/requests", asyncHandler((req, res) => res.json(mockTravelRequests)));
+router.get("/requests/:id",
+  param("id").isString(),
+  asyncHandler((req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-export const getTravelRequestApprovals: RequestHandler = (req, res) => {
-  res.json({
-    requests: mockTravelRequestApprovals,
-    total: 45,
-    page: 1,
-    limit: 10,
-  });
-};
+    const request = mockTravelRequests.find(r => r.id === req.params.id);
+    if (!request) return res.status(404).json({ error: "Travel request not found" });
+    res.json(request);
+  })
+);
 
-export const getExpenseReports: RequestHandler = (req, res) => {
-  res.json(mockExpenseReports);
-};
+router.get("/request-approvals", asyncHandler((req, res) =>
+  res.json({ requests: mockTravelRequestApprovals, total: 45, page: 1, limit: 10 })
+));
 
-export const getMonthlyExpenses: RequestHandler = (req, res) => {
-  res.json(mockMonthlyExpenses);
-};
+router.post(
+  "/requests/:id/status",
+  [
+    param("id").isString(),
+    body("status").isIn(["pending", "approved", "rejected"]),
+  ],
+  asyncHandler((req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-// Individual travel request handlers
-export const getTravelRequest: RequestHandler = (req, res) => {
-  const { id } = req.params;
-  const request = mockTravelRequests.find((r) => r.id === id);
+    const idx = mockTravelRequestApprovals.findIndex(r => r.id === req.params.id);
+    if (idx === -1) return res.status(404).json({ error: "Travel request not found" });
 
-  if (!request) {
-    return res.status(404).json({ error: "Travel request not found" });
-  }
+    mockTravelRequestApprovals[idx].status = req.body.status;
+    res.json(mockTravelRequestApprovals[idx]);
+  })
+);
 
-  res.json(request);
-};
+router.get("/expense-reports", asyncHandler((req, res) => res.json(mockExpenseReports)));
 
-export const updateTravelRequestStatus: RequestHandler = (req, res) => {
-  const { id } = req.params;
-  const { status } = req.body;
+router.get("/expense-reports/:id",
+  param("id").isString(),
+  asyncHandler((req, res) => {
+    const report = mockExpenseReports.find(r => r.id === req.params.id);
+    if (!report) return res.status(404).json({ error: "Expense report not found" });
+    res.json(report);
+  })
+);
 
-  const requestIndex = mockTravelRequestApprovals.findIndex((r) => r.id === id);
+router.post(
+  "/expense-reports/:id/status",
+  [
+    param("id").isString(),
+    body("status").isIn(["pending", "approved", "rejected"]),
+  ],
+  asyncHandler((req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-  if (requestIndex === -1) {
-    return res.status(404).json({ error: "Travel request not found" });
-  }
+    const idx = mockExpenseReports.findIndex(r => r.id === req.params.id);
+    if (idx === -1) return res.status(404).json({ error: "Expense report not found" });
 
-  if (!["pending", "approved", "rejected"].includes(status)) {
-    return res.status(400).json({ error: "Invalid status" });
-  }
+    mockExpenseReports[idx].status = req.body.status;
+    res.json(mockExpenseReports[idx]);
+  })
+);
 
-  mockTravelRequestApprovals[requestIndex].status = status as "pending" | "approved" | "rejected";
-  res.json(mockTravelRequestApprovals[requestIndex]);
-};
+router.get("/monthly-expenses", asyncHandler((req, res) => res.json(mockMonthlyExpenses)));
 
-// Individual expense report handlers
-export const getExpenseReport: RequestHandler = (req, res) => {
-  const { id } = req.params;
-  const report = mockExpenseReports.find((r) => r.id === id);
-
-  if (!report) {
-    return res.status(404).json({ error: "Expense report not found" });
-  }
-
-  res.json(report);
-};
-
-export const updateExpenseReportStatus: RequestHandler = (req, res) => {
-  const { id } = req.params;
-  const { status } = req.body;
-
-  const reportIndex = mockExpenseReports.findIndex((r) => r.id === id);
-
-  if (reportIndex === -1) {
-    return res.status(404).json({ error: "Expense report not found" });
-  }
-
-  if (!["pending", "approved", "rejected"].includes(status)) {
-    return res.status(400).json({ error: "Invalid status" });
-  }
-
-  mockExpenseReports[reportIndex].status = status;
-  res.json(mockExpenseReports[reportIndex]);
-};
+// ---- Export router ----
+export default router;
