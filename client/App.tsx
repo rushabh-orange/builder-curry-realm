@@ -19,7 +19,10 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/travel-request" element={<TravelRequestApprovals />} />
+            <Route
+              path="/travel-request"
+              element={<TravelRequestApprovals />}
+            />
             <Route
               path="/bookings"
               element={
