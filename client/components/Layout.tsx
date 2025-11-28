@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { useNavigate, useLocation } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Bell,
   Menu,
@@ -24,7 +17,6 @@ import {
   Settings,
   Reports,
 } from "@/assets/icons";
-import { clearAuth } from "@/lib/auth";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -163,35 +155,16 @@ export function Layout({ children }: LayoutProps) {
               >
                 <Bell className="h-5 w-5 text-foreground" />
               </button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-3 rounded-md p-1.5 hover:bg-gray-100 transition-colors">
-                    <img
-                      src="https://api.builder.io/api/v1/image/assets/TEMP/f608110c5bb486e70228637345583ddd9f1e7591?width=80"
-                      alt="John Admin"
-                      className="h-10 w-10 rounded-md object-cover"
-                    />
-                    <span className="text-sm font-medium text-foreground">
-                      John Admin
-                    </span>
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={() => {
-                      clearAuth();
-                      navigate("/login", { replace: true });
-                    }}
-                  >
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <button className="flex items-center gap-3 rounded-md p-1.5 hover:bg-gray-100 transition-colors">
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/f608110c5bb486e70228637345583ddd9f1e7591?width=80"
+                  alt="John Admin"
+                  className="h-10 w-10 rounded-md object-cover"
+                />
+                <span className="text-sm font-medium text-foreground">
+                  John Admin
+                </span>
+              </button>
             </div>
           </div>
         </header>
